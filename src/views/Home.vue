@@ -18,6 +18,12 @@
     <button @click="fetchApi" class="bg-red-400 w-1/4 mx-auto p-2 rounded" >View Saved</button>
   </div>
 
+  <br />
+
+  <div>
+    {{fetched}}
+  </div>
+
 </template>
 
 <script>
@@ -33,6 +39,8 @@
       const age = ref(30)
 
       const full = ref("Not Saved")
+
+      const fetched = ref("data")
 
       const handleClick = () => {
         name.value= 'luigi'
@@ -50,6 +58,8 @@
       }
 
       const postApi = async () => {
+        full.value= 'Saving..'
+
         try {
 
           const newData = {
@@ -80,12 +90,42 @@
         }
       }
 
+      const fetchApi = async () => {
+
+        full.value = 'Loading...';
+
+        fetched.value = 'Saved Data';
+
+        console.log('fetching..')
+        try {
+          const res = await fetch('http://localhost:3000/posts',
+          {
+            method: 'GET'
+          })
+
+          const data = await res.json();
+
+          if(!data) {
+            console.log(error)
+          } else {
+            fetched.value = data.map((cont) => (
+             cont.name
+            ))
+          }
+
+        } catch (error) {
+          alert(error)
+        }
+      }
+
       return {
         name,
         age,
         full,
+        fetched,
         handleClick,
         changeVal,
+        fetchApi,
         setFull,
         postApi
       }
