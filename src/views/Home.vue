@@ -7,7 +7,7 @@
       <strong>{{full}}</strong>
     </div>
     <br />
-    <div class="flex justify-center text-center align-center">
+    <div class="flex justify-center text-center align-center gap-4">
       <button @click="handleClick" class="bg-neutral-200 w-36 rounded text-black-200 mx-auto p-1 border-2 border-neutral-300" >Set name</button>
       <button @click="age++, changeVal" class="mx-auto bg-neutral-400 rounded text-back-200 p-1 px-2 border-2 border-neutral-300">Plus One Year</button>
     </div>
@@ -20,8 +20,11 @@
 
   <br />
 
-  <div>
-    {{fetched}}
+  <div class="align-center text-center gap-4">
+    {{fetched}}:
+    <div ref="outputId" id="outputId" class="text-center align-ceter justify-center flex flex-col" >
+
+    </div>
   </div>
 
 </template>
@@ -35,12 +38,12 @@
     name: 'home',
 
     setup() {
-      const  name= ref("mario")
+      const name= ref("mario")
       const age = ref(30)
 
       const full = ref("Not Saved")
 
-      const fetched = ref("data")
+      const fetched = ref("Saved Data")
 
       const handleClick = () => {
         name.value= 'luigi'
@@ -94,8 +97,6 @@
 
         full.value = 'Loading...';
 
-        fetched.value = 'Saved Data';
-
         console.log('fetching..')
         try {
           const res = await fetch('http://localhost:3000/posts',
@@ -105,11 +106,15 @@
 
           const data = await res.json();
 
+          const output = document.getElementById('outputId')
+
           if(!data) {
             console.log(error)
           } else {
-            fetched.value = data.map((cont) => (
-             cont.name
+            output.innerHTML = data.map((cont) => (
+              `<div class="p-2">
+                <h1 class="p-2 bg-slate-400 w-36 mx-auto text-center rounded">${cont.name} is ${cont.age}</h1>
+              </div>`
             ))
           }
 
