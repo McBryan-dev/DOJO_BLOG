@@ -90,7 +90,7 @@
         
         } catch(error) {
           console.log(error)
-          full.value = 'Error aving'
+          full.value = 'Error While Saving'
         }
       }
 
