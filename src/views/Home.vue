@@ -63,66 +63,65 @@
       const postApi = async () => {
         full.value= 'Saving..'
 
-        // try {
+        try {
 
-        //   const newData = {
-        //     name: name.value,
-        //     age: age.value
-        //   }
+          const newData = {
+            name: name.value,
+            age: age.value
+          }
 
-        //   const res = await fetch (' http://localhost:3000/posts', {
-        //     method: 'POST',
-        //     headers: {
-        //       'Content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(newData)
-        //   })
+          const res = await fetch (' http://localhost:3000/posts', {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json'
+            },
+            body: JSON.stringify(newData)
+          })
 
-        //   const data = res.json();
+          const data = res.json();
 
-        //   if(!data) {
-        //     console.log(error)
-        //     full.value = 'Not Saved';
-        //   } else {
-        //     console.log(data);
-        //     full.value = 'Saved';
-        //   }
+          if(!data) {
+            console.log(error)
+            full.value = 'Not Saved';
+          } else {
+            console.log(data);
+            full.value = 'Saved';
+          }
         
-        // } catch(error) {
-        //   console.log(error)
-        //   full.value = 'Error Saving'
-        // }
+        } catch(error) {
+          console.log(error)
+          full.value = 'Error aving'
+        }
       }
 
       const fetchApi = async () => {
 
         full.value = 'Loading...';
 
-        console.log('fetching..');
+        console.log('fetching..')
+        try {
+          const res = await fetch('http://localhost:3000/posts',
+          {
+            method: 'GET'
+          })
 
-        // try {
-        //   const res = await fetch('http://localhost:3000/posts',
-        //   {
-        //     method: 'GET'
-        //   })
+          const data = await res.json();
 
-        //   const data = await res.json();
+          const output = document.getElementById('outputId')
 
-        //   const output = document.getElementById('outputId')
+          if(!data) {
+            console.log(error)
+          } else {
+            output.innerHTML = data.map((cont) => (
+              `<div class="p-2">
+                <h1 class="p-2 bg-slate-400 w-36 mx-auto text-center rounded">${cont.name} is ${cont.age}</h1>
+              </div>`
+            ))
+          }
 
-        //   if(!data) {
-        //     console.log(error)
-        //   } else {
-        //     output.innerHTML = data.map((cont) => (
-        //       `<div class="p-2">
-        //         <h1 class="p-2 bg-slate-400 w-36 mx-auto text-center rounded">${cont.name} is ${cont.age}</h1>
-        //       </div>`
-        //     ))
-        //   }
-
-        // } catch (error) {
-        //   alert(error)
-        // }
+        } catch (error) {
+          alert(error)
+        }
       }
 
       return {
