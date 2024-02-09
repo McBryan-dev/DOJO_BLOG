@@ -4,7 +4,7 @@ module.exports = defineConfig({
   transpileDependencies: true,
   devServer: {
     host: '0.0.0.0',
-    allowedHosts: all,
+    allowedHosts: 'all',
     disableHostCheck: true
   }
 })
