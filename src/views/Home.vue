@@ -110,7 +110,8 @@
           const output = document.getElementById('outputId')
 
           if(!data) {
-            console.log(error)
+            console.log(error);
+            full.value = 'Error While Loading';
           } else {
             output.innerHTML = data.map((cont) => (
               `<div class="p-2">
